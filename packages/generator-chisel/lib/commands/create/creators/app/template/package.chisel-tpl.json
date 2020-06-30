@@ -30,5 +30,13 @@
   },
   "engines": {
     "node": "^10.13.0  || ^12"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,scss}": "chisel-scripts lint"
   }
 }

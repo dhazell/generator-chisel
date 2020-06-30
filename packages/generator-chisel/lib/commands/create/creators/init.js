@@ -52,7 +52,8 @@ module.exports = async (api) => {
 
           const info = await Promise.race([notifier.fetchInfo(), timeout]);
           notifier.update = info;
-          const hasUpdate = info.latest !== info.current;
+          const hasUpdate =
+            info.latest !== info.current && info.type !== distTag;
 
           return {
             notifier,

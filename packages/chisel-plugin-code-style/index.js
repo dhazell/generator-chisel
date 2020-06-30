@@ -16,7 +16,19 @@ module.exports = (api, options) => {
         files = ['**/*.{js,scss}'];
       }
 
-      const ignore = [(options.wp || {}).directoryName].filter(Boolean);
+      const wpDir = (options.wp || {}).directoryName;
+
+      const ignore = [
+        ...(wpDir
+          ? [
+              `${wpDir}/wp-admin`,
+              `${wpDir}/wp-includes`,
+              `${wpDir}/wp-content/plugins`,
+            ]
+          : []),
+        'node_modules',
+        '.git',
+      ].filter(Boolean);
 
       const filesNormalized = [].concat(
         ...(await Promise.all(
@@ -121,6 +133,7 @@ module.exports = (api, options) => {
           globbyOptions: { cwd },
           files: scssFiles,
           formatter: 'string',
+          allowEmptyInput: true,
         };
 
         const resultObject = await stylelint.lint(config);
