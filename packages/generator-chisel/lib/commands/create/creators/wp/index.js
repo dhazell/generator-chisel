@@ -1,6 +1,5 @@
-const { runLocal } = require('chisel-shared-utils');
+const { execa, runLocal } = require('chisel-shared-utils');
 const crypto = require('crypto');
-const execa = require('execa');
 const fs = require('fs-extra');
 
 module.exports = (api) => {
@@ -16,7 +15,7 @@ module.exports = (api) => {
       cwd: api.resolve(),
     }).catch(() => ({}));
 
-  api.schedule(api.PRIORITIES.ASK, async () => {
+  api.schedule(api.PRIORITIES.PROMPT, async () => {
     await api.creator.loadCreator('wp-plugins');
 
     const userName = gitConfig('user.name');

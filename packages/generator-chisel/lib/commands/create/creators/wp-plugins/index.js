@@ -4,7 +4,7 @@ const plugins = require('./plugins.json');
 module.exports = (api) => {
   if (api.creator.cmd.skipWpPlugins) return;
 
-  api.schedule(api.PRIORITIES.ASK, async () => {
+  api.schedule(api.PRIORITIES.PROMPT, async () => {
     await api.prompt([
       {
         type: 'checkbox',

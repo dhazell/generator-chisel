@@ -1,4 +1,8 @@
 module.exports = {
+  HELLO: 10,
+  CHECK_UPDATE: 20,
+  CHECK_EXIST: 30,
+
   // Basic:
   PROMPT: 100,
 

@@ -18,8 +18,9 @@ module.exports = class Creator {
   }
 
   schedule(priority, action) {
-    priority = parseFloat(priority);
-    if (!priority) priority = 0;
+    if (typeof priority !== 'number') {
+      throw new Error('priority must be a number');
+    }
 
     this.queue.push({ priority, index: this.index++, action });
   }

@@ -40,7 +40,8 @@
     "inquirer": "^7.1.0",
     "lodash": "^4.17.15",
     "speakingurl": "^14.0.1",
-    "tinyqueue": "^2.0.3"
+    "tinyqueue": "^2.0.3",
+    "update-notifier": "^4.1.0"
   },
   "devDependencies": {}
 }

@@ -1,15 +1,19 @@
 const path = require('path');
 const { startCase } = require('lodash');
-const execa = require('execa');
 const speakingUrl = require('speakingurl');
-const { run, runLocal, installDependencies } = require('chisel-shared-utils');
+const {
+  execa,
+  run,
+  runLocal,
+  installDependencies,
+} = require('chisel-shared-utils');
 const packagesVersions = require('../../packages-versions');
 
 module.exports = async (api) => {
   const runLocalCurrent = (args, opts) =>
     runLocal(args, { ...opts, cwd: api.resolve() });
 
-  api.schedule(api.PRIORITIES.ASK, async () => {
+  api.schedule(api.PRIORITIES.PROMPT, async () => {
     // TODO: project exisits
 
     const userName = execa('git', ['config', 'user.name'], {

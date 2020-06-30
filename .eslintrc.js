@@ -13,6 +13,7 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-await-in-loop': 'off',
     'no-param-reassign': 'off',
+    'no-console': 'off',
 
     // Airbnb except for of
     'no-restricted-syntax': [
