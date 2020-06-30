@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const minimist = require('minimist');
 const Service = require('../lib/Service');
 
 const service = new Service();

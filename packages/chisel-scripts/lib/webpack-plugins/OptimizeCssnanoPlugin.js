@@ -1,5 +1,6 @@
 // Based on https://github.com/intervolga/optimize-cssnano-plugin/blob/123de8b2212dbe5335be1a5c49e981ec8c2e1268/index.js
 // changed regexp to work with unminified-webpack-plugin
+/* eslint-disable */
 
 const cssnano = require('cssnano');
 const postcss = require('postcss');

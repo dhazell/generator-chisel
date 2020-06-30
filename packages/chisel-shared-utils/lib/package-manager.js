@@ -1,10 +1,10 @@
-let _hasYarn = undefined;
+let $hasYarn;
 function hasYarn() {
-  if (_hasYarn !== undefined) return _hasYarn;
+  if ($hasYarn !== undefined) return $hasYarn;
 
   const commandExists = require('command-exists');
-  _hasYarn = commandExists.sync('yarn');
-  return _hasYarn;
+  $hasYarn = commandExists.sync('yarn');
+  return $hasYarn;
 }
 
 module.exports.hasYarn = hasYarn;
@@ -12,7 +12,10 @@ module.exports.hasYarn = hasYarn;
 function installDependencies(opts = {}) {
   const execa = require('execa');
 
-  return execa(hasYarn() ? 'yarn' : 'npm', ['install'], { stdio: 'inherit', ...opts });
+  return execa(hasYarn() ? 'yarn' : 'npm', ['install'], {
+    stdio: 'inherit',
+    ...opts,
+  });
 }
 
 module.exports.installDependencies = installDependencies;

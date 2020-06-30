@@ -1,4 +1,4 @@
-module.exports = (api, options) => {
+module.exports = (api) => {
   api.registerCommand(
     'wp',
     (command) => command.description('run WP-CLI command').allowUnknownOption(),
@@ -19,6 +19,6 @@ module.exports = (api, options) => {
       } catch (e) {
         process.exit(e.exitCode);
       }
-    }
+    },
   );
 };

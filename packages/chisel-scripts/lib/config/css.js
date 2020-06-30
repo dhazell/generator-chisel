@@ -1,6 +1,5 @@
 // TODO: minify styles
 
-const path = require('path');
 const isGlob = require('is-glob');
 
 module.exports = (api, options) => {
@@ -48,12 +47,12 @@ module.exports = (api, options) => {
       hmr: !isProd,
       publicPath: path.relative(
         api.resolve(path.join(options.source.base, options.source.styles)),
-        api.resolve(options.source.base)
+        api.resolve(options.source.base),
       ),
     };
 
     const assetsDir = api.resolve(
-      path.join(options.source.base, options.source.assets)
+      path.join(options.source.base, options.source.assets),
     );
 
     const createCssLoader = (rule, test) => {

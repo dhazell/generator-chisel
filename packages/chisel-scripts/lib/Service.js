@@ -1,11 +1,11 @@
 // Based on https://github.com/vuejs/vue-cli/blob/80b93951b1710733a66765cbd535b12b7bb59279/packages/%40vue/cli-service/lib/Service.js
 
-const merge = require('webpack-merge');
+// const merge = require('webpack-merge');
 const Config = require('webpack-chain');
-const PluginAPI = require('./PluginAPI');
 const path = require('path');
 const { defaultsDeep } = require('lodash');
 const { Command } = require('commander');
+const PluginAPI = require('./PluginAPI');
 
 module.exports = class Service {
   constructor(context) {
@@ -17,6 +17,7 @@ module.exports = class Service {
     this.plugins = this.loadPlugins();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   loadPlugins() {
     const idToPlugin = (id) => ({
       id: id.replace(/^.\//, 'built-in:'),
@@ -59,7 +60,7 @@ module.exports = class Service {
     try {
       userLocalOptions = require(path.resolve(
         this.context,
-        'chisel.config.local.js'
+        'chisel.config.local.js',
       ));
     } catch (e) {
       //
@@ -68,7 +69,7 @@ module.exports = class Service {
       {},
       userLocalOptions,
       userOptions,
-      baseOptions
+      baseOptions,
     );
 
     if (Array.isArray(userOptions.plugins)) {
@@ -108,7 +109,7 @@ module.exports = class Service {
       chainableConfig = await this.resolveChainableWebpackConfig();
     }
     // get raw config
-    let config = chainableConfig.toConfig();
+    const config = chainableConfig.toConfig();
     // const original = config
 
     config.node = false;

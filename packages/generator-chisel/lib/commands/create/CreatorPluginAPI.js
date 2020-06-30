@@ -44,6 +44,7 @@ module.exports = class CreatorPluginAPI {
     return this.creator.data[this.id];
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async promptLocal(questions) {
     return inquirer.prompt(questions);
   }

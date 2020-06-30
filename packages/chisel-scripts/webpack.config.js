@@ -1,4 +1,5 @@
 const Service = require('./lib/Service');
+
 const service = new Service();
 
 module.exports = (async () => {

@@ -5,7 +5,7 @@ module.exports = function formatStats(stats, dir, assetsDir, api) {
   const path = require('path');
   const zlib = require('zlib');
   const ui = require('cliui')({ width: 80 });
-  const chalk = require('chalk');
+  const { chalk } = require('chisel-shared-utils');
 
   const json = stats.toJson({
     hash: false,
@@ -23,7 +23,7 @@ module.exports = function formatStats(stats, dir, assetsDir, api) {
   const isMinJS = (val) => /\.min\.js$/.test(val);
   assets = assets
     .map((a) => {
-      a.name = a.name.split('?')[0];
+      [a.name] = a.name.split('?');
       return a;
     })
     .filter((a) => {
@@ -42,7 +42,7 @@ module.exports = function formatStats(stats, dir, assetsDir, api) {
     });
 
   function formatSize(size) {
-    return (size / 1024).toFixed(2) + ' KiB';
+    return `${(size / 1024).toFixed(2)} KiB`;
   }
 
   function getGzippedSize(asset) {
@@ -56,26 +56,24 @@ module.exports = function formatStats(stats, dir, assetsDir, api) {
   }
 
   ui.div(
-    makeRow(
+    `${makeRow(
       chalk.cyan.bold(`File`),
       chalk.cyan.bold(`Size`),
-      chalk.cyan.bold(`Gzipped`)
-    ) +
-      `\n\n` +
-      assets
-        .map((asset) =>
-          makeRow(
-            /js$/.test(asset.name)
-              ? chalk.green(asset.name)
-              : chalk.blue(asset.name),
-            formatSize(asset.size),
-            getGzippedSize(asset)
-          )
-        )
-        .join(`\n`)
+      chalk.cyan.bold(`Gzipped`),
+    )}\n\n${assets
+      .map((asset) =>
+        makeRow(
+          /js$/.test(asset.name)
+            ? chalk.green(asset.name)
+            : chalk.blue(asset.name),
+          formatSize(asset.size),
+          getGzippedSize(asset),
+        ),
+      )
+      .join(`\n`)}`,
   );
 
   return `${ui.toString()}\n\n  ${chalk.gray(
-    `Images and other types of assets omitted.`
+    `Images and other types of assets omitted.`,
   )}\n`;
 };

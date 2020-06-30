@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = function chiselPreset(api, options = {}) {
   const runtimePath = path.dirname(
-    require.resolve('@babel/runtime/package.json')
+    require.resolve('@babel/runtime/package.json'),
   );
   const runtimeVersion = require('@babel/runtime/package.json').version;
 
@@ -38,6 +38,7 @@ module.exports = function chiselPreset(api, options = {}) {
           modules,
           bugfixes,
           useBuiltIns,
+          // eslint-disable-next-line import/no-unresolved
           corejs: useBuiltIns ? require('core-js/package.json').version : false,
           shippedProposals,
         }),

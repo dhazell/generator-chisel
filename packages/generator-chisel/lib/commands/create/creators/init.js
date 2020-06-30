@@ -24,16 +24,16 @@ module.exports = async (api) => {
   }
 
   api.schedule(api.PRIORITIES.HELLO, async () => {
-    console.log('');
+    console.log();
     console.log(chalk.yellow('*'.repeat(47)));
-    console.log('');
+    console.log();
     console.log(chalk.yellow('  Welcome to Chisel'));
-    console.log('');
+    console.log();
     console.log(chalk.reset('  https://www.getchisel.co'));
     console.log(chalk.reset('  https://github.com/xfiveco/generator-chisel'));
-    console.log('');
+    console.log();
     console.log(chalk.yellow('*'.repeat(47)));
-    console.log('');
+    console.log();
   });
 
   api.schedule(api.PRIORITIES.CHECK_UPDATE, async () => {

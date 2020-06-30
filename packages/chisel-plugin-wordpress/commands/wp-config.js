@@ -3,14 +3,13 @@ module.exports = (api, options) => {
     'wp-config',
     (command) =>
       command.description(
-        'configure WP (writes wp/wp-config-local.php an dev-vhost.conf)'
+        'configure WP (writes wp/wp-config-local.php an dev-vhost.conf)',
       ),
     async () => {
       const { runLocal, copy } = require('chisel-shared-utils');
       const runLocalCurrent = (args, opts) =>
         runLocal(args, { ...opts, cwd: api.resolve() });
       const inquirer = require('inquirer');
-      const fs = require('fs-extra');
       const path = require('path');
 
       const prompts = [
@@ -95,18 +94,17 @@ module.exports = (api, options) => {
         }
       };
 
-      let dbReady = false;
-      while (!dbReady) {
-        await promptAndCreateDB()
-          .then(() => {
-            dbReady = true;
-          })
-          .catch(() => {
-            console.log('');
-            console.log('Trying again...');
-            console.log('');
-          });
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        try {
+          await promptAndCreateDB();
+          break;
+        } catch (e) {
+          console.log('');
+          console.log('Trying again...');
+          console.log('');
+        }
       }
-    }
+    },
   );
 };

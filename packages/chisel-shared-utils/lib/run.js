@@ -16,20 +16,20 @@ function run(args, options = {}) {
         if (typeof arg !== 'object') return arg;
 
         return Object.entries(arg).map(([key, val]) =>
-          typeof val === 'boolean' ? val && `--${key}` : `--${key}=${val}`
+          typeof val === 'boolean' ? val && `--${key}` : `--${key}=${val}`,
         );
-      })
+      }),
     )
     .filter(Boolean);
 
-  const run = execa(args[0], argsNormalized, execaOptsNormalized);
+  const runn = execa(args[0], argsNormalized, execaOptsNormalized);
 
   if (!silent) {
-    run.stdout.pipe(process.stdout);
-    run.stderr.pipe(process.stderr);
+    runn.stdout.pipe(process.stdout);
+    runn.stderr.pipe(process.stderr);
   }
 
-  return run;
+  return runn;
 }
 
 module.exports.run = run;

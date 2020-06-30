@@ -30,8 +30,8 @@ module.exports = {
     'scss/selector-no-redundant-nesting-selector': true,
     'at-rule-no-unknown': null,
     'scss/at-rule-no-unknown': true,
-    "scss/at-extend-no-missing-placeholder": true,
-    "scss/at-import-partial-extension-blacklist": ["scss"],
+    'scss/at-extend-no-missing-placeholder': true,
+    'scss/at-import-partial-extension-blacklist': ['scss'],
 
     // Additions that MAY CONFLICT WITH PRETTIER:
     'rule-empty-line-before': [

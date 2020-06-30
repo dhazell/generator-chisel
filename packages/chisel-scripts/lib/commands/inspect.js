@@ -9,6 +9,6 @@ module.exports = (api) => {
       const config = await api.service.resolveWebpackConfig();
 
       console.log(highlight(toString(config), { language: 'js' }));
-    }
+    },
   );
 };

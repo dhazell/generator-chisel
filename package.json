@@ -6,6 +6,7 @@
     "test-projects/*"
   ],
   "scripts": {
+    "lint": "eslint --no-eslintrc -c .eslintrc.js **/*.js",
     "version": "node scripts/index-versions.js",
     "prepare-links": "node scripts/prepare-links.js"
   },

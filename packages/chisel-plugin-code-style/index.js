@@ -24,16 +24,16 @@ module.exports = (api, options) => {
             const fileAbs = api.resolve(file);
             if (await fs.pathExists(fileAbs)) {
               return slash(fileAbs); // required for stylelint
-            } else {
-              return globby(file, {
-                cwd,
-                absolute: true,
-                dot: true,
-                ignore,
-              });
             }
-          })
-        ))
+
+            return globby(file, {
+              cwd,
+              absolute: true,
+              dot: true,
+              ignore,
+            });
+          }),
+        )),
       );
 
       // console.log(filesNormalized);
@@ -49,7 +49,7 @@ module.exports = (api, options) => {
 
       const jsFiles = filesNormalized.filter((file) => file.endsWith('.js'));
       const scssFiles = filesNormalized.filter((file) =>
-        file.endsWith('.scss')
+        file.endsWith('.scss'),
       );
       const hasJS = jsFiles.length > 0;
       const hasScss = scssFiles.length > 0;
@@ -67,7 +67,7 @@ module.exports = (api, options) => {
         const engine = new CLIEngine(config);
 
         const jsFileNotIgnored = jsFiles.filter(
-          (file) => !engine.isPathIgnored(file)
+          (file) => !engine.isPathIgnored(file),
         );
 
         // https://github.com/vuejs/vue-cli/blob/a41cac220a5bc5e5305807f5249178cbcbf642f4/packages/%40vue/cli-plugin-eslint/lint.js#L72
@@ -106,7 +106,7 @@ module.exports = (api, options) => {
           console.log(
             hasFixed
               ? `All JS lint issues auto-fixed.`
-              : `No JS lint issues found!`
+              : `No JS lint issues found!`,
           );
         }
       }
@@ -114,7 +114,6 @@ module.exports = (api, options) => {
       if (hasScss) {
         // inspired by https://github.com/olegskl/gulp-stylelint/blob/95921fed4cea5b11feb04395675d3abeb38464db/src/index.js
         const stylelint = require('stylelint');
-        const isErrorSeverity = (warning) => warning.severity === 'error';
 
         const config = {
           fix: cmd.fix,
@@ -128,10 +127,8 @@ module.exports = (api, options) => {
 
         if (resultObject.errored) {
           exit = 1;
-        } else {
-          if (!resultObject.output) {
-            console.log(`No SCSS lint issues found OR all issues auto-fixed.`);
-          }
+        } else if (!resultObject.output) {
+          console.log(`No SCSS lint issues found OR all issues auto-fixed.`);
         }
 
         if (resultObject.output) {
@@ -140,6 +137,6 @@ module.exports = (api, options) => {
       }
 
       process.exit(exit);
-    }
+    },
   );
 };

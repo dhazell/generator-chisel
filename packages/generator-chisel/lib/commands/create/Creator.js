@@ -9,7 +9,7 @@ module.exports = class Creator {
     };
     this.queue = new TinyQueue(
       [],
-      (a, b) => a.priority - b.priority || a.index - b.index
+      (a, b) => a.priority - b.priority || a.index - b.index,
     );
     this.context = context || process.env.CHISEL_CONTEXT || process.cwd();
     this.args = opts.args;
@@ -22,12 +22,13 @@ module.exports = class Creator {
       throw new Error('priority must be a number');
     }
 
+    // eslint-disable-next-line no-plusplus
     this.queue.push({ priority, index: this.index++, action });
   }
 
   async loadCreator(name) {
-    const _path = path.join(__dirname, 'creators', name);
-    const init = require(_path);
+    const ppath = path.join(__dirname, 'creators', name);
+    const init = require(ppath);
     return init(new CreatorPluginAPI(name, this));
   }
 

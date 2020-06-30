@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "chisel-shared-utils": "*",
-    "command-exists": "^1.2.9",
+    "commander": "^5.1.0",
     "execa": "^4.0.2",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",

@@ -1,7 +1,7 @@
 console.log = console.error.bind(console);
 
-const config = require('../webpack.config');
 const { toString } = require('webpack-chain');
+const config = require('../webpack.config');
 
 config.then((cfg) => {
   cfg.plugins = []; // problems with serialization

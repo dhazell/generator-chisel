@@ -26,24 +26,24 @@ module.exports.copy = async function copy(options = {}) {
     dot,
   });
 
-  const promises = files.map((file) => {
-    const relative = path.relative(basePath, file);
+  const promises = files.map((f) => {
+    const relative = path.relative(basePath, f);
     let target = path.resolve(to, relative);
 
-    if (file.match(CHISEL_TEMPLATE)) {
+    if (f.match(CHISEL_TEMPLATE)) {
       target = target.replace(CHISEL_TEMPLATE, '');
 
       return fs
-        .readFile(file, { encoding: 'utf8' })
+        .readFile(f, { encoding: 'utf8' })
         .then((fileBody) =>
           fs.outputFile(
             target,
-            template(fileBody, { sourceURL: file })(templateData)
-          )
+            template(fileBody, { sourceURL: f })(templateData),
+          ),
         );
     }
 
-    return fs.copy(file, target, { overwrite: true });
+    return fs.copy(f, target, { overwrite: true });
   });
 
   return Promise.all(promises);

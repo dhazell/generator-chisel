@@ -7,7 +7,7 @@ const execa = require('execa');
     data: file,
   } = await axios(
     'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar',
-    { responseType: 'arraybuffer' }
+    { responseType: 'arraybuffer' },
   );
   fs.writeFileSync('./wp-cli.phar', file);
   await execa('php', ['./wp-cli.phar', '--info']);

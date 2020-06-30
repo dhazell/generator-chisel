@@ -13,7 +13,7 @@ module.exports = (api, options) => {
           {
             from: path.join(
               api.service.projectOptions.source.base,
-              api.service.projectOptions.source.assets
+              api.service.projectOptions.source.assets,
             ),
             // from: path.posix.join(
             //   api.service.projectOptions.source.base,
@@ -38,7 +38,7 @@ module.exports = (api, options) => {
           writeToFileEmit: !isProd,
           map(obj) {
             if (obj.isAsset && obj.name.startsWith(`${outDir}/`)) {
-              obj.name = obj.name.replace(/\.[\da-f]{8}(?=(?:\.[^\.]*)?$)/, '');
+              obj.name = obj.name.replace(/\.[\da-f]{8}(?=(?:\.[^.]*)?$)/, '');
             }
 
             return obj;

@@ -9,13 +9,13 @@ module.exports = (api, options) => {
         .description('build for production')
         .option(
           '--no-clean',
-          'do not remove the dist directory before building the project'
+          'do not remove the dist directory before building the project',
         )
         .option('--watch', 'watch for changes'),
     async (cmd) => {
       const path = require('path');
       const webpack = require('webpack');
-      const chalk = require('chalk');
+      const { chalk } = require('chisel-shared-utils');
       const fs = require('fs-extra');
       const formatStats = require('./formatStats');
 
@@ -25,25 +25,26 @@ module.exports = (api, options) => {
         await fs.remove(api.resolve(options.output.base));
       }
 
-      return new Promise(async (resolve, reject) => {
-        //
+      const config = await api.service.resolveWebpackConfig();
 
-        const config = await api.service.resolveWebpackConfig();
+      return new Promise((resolve, reject) => {
         const targetDir = api.resolve(options.output.base);
         config.watch = Boolean(cmd.watch);
 
         webpack(config, (err, stats) => {
           if (err) {
-            return reject(err);
+            reject(err);
+            return;
           }
 
           const info = stats.toJson();
 
           if (stats.hasErrors()) {
             console.log(
-              stats.toString({ colors: chalk.supportsColor.hasBasic })
+              stats.toString({ colors: chalk.supportsColor.hasBasic }),
             );
-            return reject(`Build failed with errors.`);
+            reject(new Error('Build failed with errors.'));
+            return;
           }
 
           if (stats.hasWarnings()) {
@@ -55,10 +56,9 @@ module.exports = (api, options) => {
           console.log();
           console.log(formatStats(stats, targetDirShort, assetsDir, api));
 
-
           resolve();
         });
       });
-    }
+    },
   );
 };
