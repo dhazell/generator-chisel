@@ -1,7 +1,3 @@
-// TODO: minify styles
-
-const isGlob = require('is-glob');
-
 module.exports = (api, options) => {
   api.chainWebpack((webpackConfig) => {
     const globby = require('globby');
@@ -18,8 +14,7 @@ module.exports = (api, options) => {
         outputStyle: 'expanded', //  TODO: test postcss and add minifier
         importer(url, prev, done) {
           (async () => {
-            // TODO: globby.hasMagic
-            if (isGlob(url)) {
+            if (globby.hasMagic(url)) {
               const files = (
                 await globby(url, { cwd: path.dirname(prev) })
               ).sort();
