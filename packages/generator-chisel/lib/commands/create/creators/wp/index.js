@@ -1,4 +1,4 @@
-const { execa, runLocal } = require('chisel-shared-utils');
+const { execa, chalk, runLocal } = require('chisel-shared-utils');
 const crypto = require('crypto');
 const fs = require('fs-extra');
 
@@ -114,7 +114,10 @@ module.exports = (api) => {
   api.schedule(api.PRIORITIES.WP_CONFIG, async () => {
     if (api.creator.cmd.skipWpConfig) return;
 
-    await runLocal(['chisel-scripts', 'wp-config'], { cwd: api.resolve() });
+    await runLocal(['chisel-scripts', 'wp-config'], {
+      cwd: api.resolve(),
+      execaOpts: { stdio: 'inherit' },
+    });
   });
 
   api.schedule(api.PRIORITIES.WP_INSTALL, async () => {

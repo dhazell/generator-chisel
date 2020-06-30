@@ -40,9 +40,7 @@ module.exports = (api, options) => {
           const info = stats.toJson();
 
           if (stats.hasErrors()) {
-            console.log(
-              stats.toString({ colors: chalk.supportsColor.hasBasic }),
-            );
+            console.log(stats.toString({ colors: chalk.supportsColor }));
             reject(new Error('Build failed with errors.'));
             return;
           }

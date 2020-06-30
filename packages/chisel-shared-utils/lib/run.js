@@ -25,8 +25,8 @@ function run(args, options = {}) {
   const runn = execa(args[0], argsNormalized, execaOptsNormalized);
 
   if (!silent) {
-    runn.stdout.pipe(process.stdout);
-    runn.stderr.pipe(process.stderr);
+    if (runn.stdout) runn.stdout.pipe(process.stdout);
+    if (runn.stderr) runn.stderr.pipe(process.stderr);
   }
 
   return runn;
