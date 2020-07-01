@@ -140,7 +140,7 @@ module.exports = async (api) => {
 
   api.schedule(api.PRIORITIES.BUILD, async () => {
     console.log('Linting and building...');
-    await runLocalCurrent(['build']);
+    await runLocalCurrent(['build'], { execaOpts: { stdio: 'inherit' } });
   });
 
   // api.schedule(api.PRIORITIES.END_MESSAGE, async () => {
